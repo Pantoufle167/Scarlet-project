@@ -1,0 +1,385 @@
+<!-- TABS
+   ============================= -->
+<input class="display_string" name="attr_character_settings" type="hidden" value="character">
+
+<!-- TABS & LOGO
+   ============================= -->
+<div class="tabs">
+	<div class="flex">
+		<img alt="logo" src="https://wispsoftime.com/wp-content/uploads/2017/12/scarlet_heroes.png">
+	</div>
+	<div class="flex info-flex">
+		<div class="grid grid-tab-inputs">
+			<!-- INFO INPUTS -->
+			<span data-i18n="character">character</span>
+			<label data-i18n-title="c11e" title="character name">
+				<input data-i18n-placeholder="c11e" name="attr_character_name" placeholder="character name" title="@{character_name}" type="text" value="" />
+			</label>
+			<span data-i18n="player">player</span>
+			<label data-i18n-title="p8e" title="player name">
+				<input data-i18n-placeholder="p8e" name="attr_player_name" placeholder="player name" title="@{player_name}" type="text" value="" />
+			</label>
+			<span data-i18n="notes">notes</span>
+			<label data-i18n-title="c12s" title="character notes">
+				<input data-i18n-placeholder="c12s" name="attr_character_notes" placeholder="character notes" title="@{character_notes}" type="text" value="" />
+			</label>
+		</div>
+		<div class="grid grid-tab-buttons">
+			<!-- Buttons to toggle on GM whisper -->
+			<input class="whisper-toggle" name="attr_gm_toggle" type="hidden"  value=" " />
+			<button name="act_whisper" data-i18n-title="gm-whisper" title="gm whisper" type="action">q</button>
+			<!-- CHARACTER SHEETS -->
+		    <button data-i18n="pc" data-i18n-title="p19n" name="act_toggle_character" title="player character button" type="action">pc</button>
+		    <button data-i18n="notes" data-i18n-title="n9n" name="act_toggle_notes" title="notes button" type="action">notes</button>
+		    <button data-i18n="npc" data-i18n-title="n16r" name="act_toggle_npc" title="non player character" type="action">npc</button>
+		</div>
+	</div>
+</div>
+
+<!-- NPC SHEET
+   ============================= -->
+<div class="npc">
+	<div class="box npc-flex">
+	    <span>Name:</span><input type="text" name="attr_character_name">
+        <span>Speed:</span><input type="number" name="attr_npc_speed">
+        <span>AC:</span><input type="number" name="attr_npc_ac">
+        <span>Hit dice:</span><input type="number" name="attr_npc_hitdice">
+	</div>
+	<div class="box npc-flex">
+	    <span>Morale:</span><input type="number" name="attr_npc_morale">
+        <span>Skill bonus:</span><input type="number" name="attr_npc_skill">
+        <span>Initiative:</span><button type="roll" value="/me rolls initiative:[[d8+@{dexterityMod}+?{Modifier|0}&{tracker}]]"></button>
+	</div>
+	<div class="box npc-flex">
+	    <fieldset class="repeating_npcatk">
+            <span>Attack:</span><input type="text" name="attr_npc_atk">
+            <span>Bonus:</span><input type="number" name="attr_npc_atk_bonus">
+            <span>Damage:</span><input type="text" name="attr_npc_dmg">
+            <span>Damage type:</span><input type="text" name="attr_npc_dmgtype">
+            <span>Roll:</span><button type='roll' value='&{template:attack} {{name=@{name} attacks using @{npc_atk}!}} {{toHit=[[d20+@{npc_atk_bonus}]]}} {{damage=[[@{npc_dmg}]]}}'></button>
+        </fieldset>
+	</div>
+</div>
+
+<!-- PC SHEET
+   ============================= -->
+<div class="pc">
+	<div class="flex pc-flex">
+		<div class="grid grid-header">
+		    <button class="pictos" data-i18n-title="p23s" name="act_toggle_attributes" title="player character attributes" type="action">y</button>
+		    <h1 data-i18n="attributes" data-i18-title="attributes" title="attributes">attributes</h1>
+		</div>
+		<div class="grid grid-pc-attributes">
+			<!-- STRENGTH -->
+			<button name="roll_strength" type="roll" value="@{gm_toggle} &{template:rolls}{{header=^{strength}}}{{base=^{attributes}}}{{dice=[[2d8+@{strengthMod}+?{Modifier|0}]]}}">
+				<h2 data-i18n="strength">strength</h2>
+			</button>
+			<label data-i18n-title="s11t" title="strength input">
+				<span>MAX</span>
+				<input name="attr_strength_max" placeholder="10" title="@{strength_max}" type="number" value="" />
+				<span>Current</span>
+				<input data-i18n-placeholder="10" name="attr_strength" placeholder="10" title="@{strength}" type="number" value="" />
+				<span>Mod</span>
+				<span type="number" name="attr_strengthMod" class="attrmod" title="@{strengthMod}"></span>
+			</label>
+		</div>
+		<div class="grid grid-pc-attributes">
+			<!-- DEXTERITY -->
+			<button name="roll_dexterity" type="roll" value="@{gm_toggle} &{template:rolls}{{header=^{dexterity}}}{{base=^{attributes}}}{{dice=[[2d8+@{dexterityMod}+?{Modifier|0}]]}}">
+				<h2 data-i18n="dexterity">dexterity</h2>
+			</button>
+			<label data-i18n-title="s11t" title="dexterity input">
+				<span>MAX</span>
+				<input name="attr_dexterity_max" placeholder="10" title="@{dexterity_max}" type="number" value="" />
+				<span>Current</span>
+				<input data-i18n-placeholder="10" name="attr_dexterity" placeholder="10" title="@{dexterity}" type="number" value="" />
+				<span>Mod</span>
+				<span type="number" name="attr_dexterityMod" class="attrmod" title="@{dexterityMod}"></span>
+			</label>
+		</div>
+		<div class="grid grid-pc-attributes">
+			<!-- CONSTITUTION -->
+			<button name="roll_constitution" type="roll" value="@{gm_toggle} &{template:rolls}{{header=^{constitution}}}{{base=^{attributes}}}{{dice=[[2d8+@{constitutionMod}+?{Modifier|0}]]}}">
+				<h2 data-i18n="constitution">constitution</h2>
+			</button>
+			<label data-i18n-title="s11t" title="constitution input">
+				<span>MAX</span>
+				<input name="attr_constitution_max" placeholder="10" title="@{constitution_max}" type="number" value="" />
+				<span>Current</span>
+				<input data-i18n-placeholder="10" name="attr_constitution" placeholder="10" title="@{constitution}" type="number" value="" />
+				<span>Mod</span>
+				<span type="number" name="attr_constitutionMod" class="attrmod" title="@{constitutionMod}"></span>
+			</label>
+		</div>
+		<div class="grid grid-pc-attributes">
+			<!-- INTELLIGENCE -->
+			<button name="roll_intelligence" type="roll" value="@{gm_toggle} &{template:rolls}{{header=^{intelligence}}}{{base=^{attributes}}}{{dice=[[2d8+@{intelligenceMod}+?{Modifier|0}]]}}">
+				<h2 data-i18n="intelligence">intelligence</h2>
+			</button>
+			<label data-i18n-title="s11t" title="intelligence input">
+				<span>MAX</span>
+				<input name="attr_intelligence_max" placeholder="10" title="@{intelligence_max}" type="number" value="" />
+				<span>Current</span>
+				<input data-i18n-placeholder="10" name="attr_intelligence" placeholder="10" title="@{intelligence}" type="number" value="" />
+				<span>Mod</span>
+				<span type="number" name="attr_intelligenceMod" class="attrmod" title="@{intelligenceMod}"></span>
+			</label>
+		</div>
+		<div class="grid grid-pc-attributes">
+			<!-- WISDOM -->
+			<button name="roll_wisdom" type="roll" value="@{gm_toggle} &{template:rolls}{{header=^{wisdom}}}{{base=^{attributes}}}{{dice=[[2d8+@{wisdomMod}+?{Modifier|0}]]}}">
+				<h2 data-i18n="wisdom">wisdom</h2>
+			</button>
+			<label data-i18n-title="s11t" title="wisdom input">
+				<span>MAX</span>
+				<input name="attr_wisdom_max" placeholder="10" title="@{wisdom_max}" type="number" value="" />
+				<span>Current</span>
+				<input data-i18n-placeholder="10" name="attr_wisdom" placeholder="10" title="@{wisdom}" type="number" value="" />
+				<span>Mod</span>
+				<span type="number" name="attr_wisdomMod" class="attrmod" title="@{wisdomMod}"></span>
+			</label>
+		</div>
+		<div class="grid grid-pc-attributes">
+			<!-- CHARISMA -->
+			<button name="roll_charisma" type="roll" value="@{gm_toggle} &{template:rolls}{{header=^{charisma}}}{{base=^{attributes}}}{{dice=[[2d8+@{charismaMod}+?{Modifier|0}]]}}">
+				<h2 data-i18n="charisma">charisma</h2>
+			</button>
+			<label data-i18n-title="s11t" title="charisma input">
+				<span>MAX</span>
+				<input name="attr_charisma_max" placeholder="10" title="@{charisma_max}" type="number" value="" />
+				<span>Current</span>
+				<input data-i18n-placeholder="10" name="attr_charisma" placeholder="10" title="@{charisma}" type="number" value="" />
+				<span>Mod</span>
+				<span type="number" name="attr_charismaMod" class="attrmod" title="@{charismaMod}"></span>
+			</label>
+		</div>
+	</div>
+	<div class="flex pc-flex">
+	    <div class="grid grid-header">
+		    <h1 data-i18n="Traits and Abilities" data-i18-title="Traits and Abilities" title="header 1">Traits and Abilities</h1>
+	    </div>
+		<fieldset class="repeating_traits">
+                    <input type="text" name="attr_trait_name">
+                    <input type="number" name="attr_trait_value">
+                    <button type="roll" value="/me rolls @{trait_name}:[[2d8+@{trait_value}+?{Attribute|Strength,@{strengthMod}|Dexterity,@{dexterityMod}|Constitution,@{constitutionMod}|Intelligence,@{intelligenceMod}|Wisdom,@{wisdomMod}|Charisma,@{charismaMod}}]]"><h2><span name="attr_trait_name"></span></h2></button>
+        </fiedlset>
+	</div>
+	<div class="flex pc-flex">
+	    <div class="grid grid-header">
+	        <h1 data-i18n="Weapons" data-i18-title="Weapons" title="header 1">Weapons</h1>
+	    </div>
+                <fieldset class="repeating_weapons">
+                        <input type="text" name="attr_wepName">
+                        <input type="number" name="attr_wepBonus">
+                        <span style="font-weight: bold;">Damage dices:</span>
+                        <select name="attr_damage1" class="dtype"> 
+                        <option value="0d0"></option>
+                        <option value="1d4">1d4</option>
+                        <option value="1d6">1d6</option>
+                        <option value="1d8">1d8</option>
+                        <option value="1d10">1d10</option>
+                        <option value="1d12">1d12</option>
+                        </select>
+                        <span>Activate 2nd dice</span><input type="checkbox" name="attr_damage2_check" class="sheet-arrow" value="1" style="width:20px">
+                        <div class="sheet-body">
+                            <select name="attr_damage2" class="dtype"> 
+                                <option value="0d0"></option>
+                                <option value="[[@{damage2_check}d4]]">1d4</option>
+                                <option value="[[@{damage2_check}d6]]">1d6</option>
+                                <option value="[[@{damage2_check}d8]]">1d8</option>
+                                <option value="[[@{damage2_check}d10]]">1d10</option>
+                                <option value="[[@{damage2_check}d12]]">1d12</option>
+                            </select></div>
+                        <span>Activate 3rd dice</span><input type="checkbox" name="attr_damage3_check" class="sheet-arrow" value="1" style="width:20px">
+                        <div class="sheet-body">
+                            <select name="attr_damage3" class="dtype"> 
+                                <option value="0d0"></option>
+                                <option value="[[@{damage3_check}d4]]">1d4</option>
+                                <option value="[[@{damage3_check}d6]]">1d6</option>
+                                <option value="[[@{damage3_check}d8]]">1d8</option>
+                                <option value="[[@{damage3_check}d10]]">1d10</option>
+                                <option value="[[@{damage3_check}d12]]">1d12</option>
+                            </select></div>
+                        <button type='roll' value='&{template:attack} {{name=@{character_name} attacks with @{wepName}!}} {{toHit=[[d20+floor(@{atk_bonus})+@{wepBonus}]]}} {{r1=[[@{damage1}]]}} {{r2=[[@{damage2}]]}} {{r3=[[@{damage3}]]}}' class="nod20" style="margin-bottom:10px;"><span>Attack</span></span></button>
+                </fieldset>
+	</div>
+	<div class="flex pc-flex">
+	    <div class="grid grid-header">
+	        <h1 data-i18n="Magic" data-i18-title="Magic" title="header 1">Magic</h1>
+        </div>
+	    <fieldset class="repeating_spells">
+            <div class= "2colrow">
+                <div class="col"><h3>Spell</h3>
+                <input type="text" name="attr_spell_name"  style="max-width: 100%"></div>
+                <div class="col"><h3>Description</h3>
+                <input type="text" name="attr_spell_desc"  style="max-width: 100%"></div>
+            </div>
+        </fiedlset>
+	</div>
+	<div class="flex pc-flex">
+	    <div class="grid grid-header">
+	        <h1 data-i18n="Gear" data-i18-title="Gear" title="header 1">Gear</h1>
+        </div>
+	    <textarea name="attr_items"></textarea>
+	</div>
+	<div class="flex pc-flex">
+		<div class="grid grid-header">
+	        <h1 data-i18n="Treasure" data-i18-title="Treasure" title="header 1">Treasure</h1>
+	    </div>
+	    <textarea name="attr_treasure"></textarea>
+	</div>
+</div>
+
+<!-- NOTES SHEET
+   ============================= -->
+<div class="notes">
+</div>
+
+<!-- FOOTER
+   ============================= -->
+<footer>
+	<span>WiP</span>
+	<span>Version </span><span name="attr_version"></span>
+</footer>
+
+<!-- HIDDEN ATTRIBUTES
+   ============================= -->
+	<input name="attr_version" type="hidden" value="1" />
+
+<!-- ROLL TEMPLATE
+   ============================= -->
+	<div class="rolltemplates">
+		<rolltemplate class="sheet-rolltemplate-rolls">
+		 	<!--- Display a header on the template --->
+    		<div class="sheet-template-header">
+    			{{#header}}{{header}}{{/header}}
+    		</div>
+    		<!--- Display the dice roll in the template --->
+	    	<div class="sheet-template-body">
+	    		{{#dice}}
+	    			<div class="sheet-template-row">{{dice}}</div>
+	    		{{/dice}}
+	    		<!--- Display a description. This is great for text included with a roll --->
+		    	{{#desc}}
+		    		<div class="sheet-template-row">
+		    			<span class="sheet-template-desc">
+		    			</span>
+		    		</div>
+	    		{{/desc}}
+	    	</div>
+		</rolltemplate>
+	</div>
+	
+	<rolltemplate class="sheet-rolltemplate-attack">
+        <div class ='wholeTemplate'>
+            <div class='heading'>
+                <h4>{{name}}</h4>
+            </div>
+            <table>
+                <caption>Bonuses only apply to one die.</caption>
+                <tr><td>Roll:{{toHit}}</td></tr>
+                <tr><td>Damage Roll:{{r1}}</td>
+                    <td>{{#rollLess() r1 2}} <span>Damage : 0</span> {{/rollLess() r1 2}}</td>
+                    <td>{{#rollBetween() r1 2 5}} <span>Damage : 1</span> {{/rollBetween() r1 2 5}}</td>
+                    <td>{{#rollBetween() r1 6 9}} <span>Damage : 2</span> {{/rollBetween() r1 6 9}}</td>
+                    <td>{{#rollGreater() r1 9}} <span>Damage : 4</span> {{/rollGreater() r1 9}}</td>
+                </tr> 
+                {{#rollGreater() r2 0}}
+                <tr><td>Damage Roll:{{r2}}</td>
+                    <td>{{#rollLess() r2 2}} <span>Damage : 0</span> {{/rollLess() r2 2}}</td>
+                    <td>{{#rollBetween() r2 2 5}} <span>Damage : 1</span> {{/rollBetween() r2 2 5}}</td>
+                    <td>{{#rollBetween() r2 6 9}} <span>Damage : 2</span> {{/rollBetween() r2 6 9}}</td>
+                    <td>{{#rollGreater() r2 9}} <span>Damage : 4</span> {{/rollGreater() r2 9}}</td>
+                </tr> {{/rollGreater() r2 0}}
+                {{#rollGreater() r3 0}}
+                <tr><td>Damage Roll:{{r3}}</td>
+                    <td>{{#rollLess() r3 2}} <span>Damage : 0</span> {{/rollLess() r3 2}}</td>
+                    <td>{{#rollBetween() r3 2 5}} <span>Damage : 1</span> {{/rollBetween() r3 2 5}}</td>
+                    <td>{{#rollBetween() r3 6 9}} <span>Damage : 2</span> {{/rollBetween() r3 6 9}}</td>
+                    <td>{{#rollGreater() r3 9}} <span>Damage : 4</span> {{/rollGreater() r3 9}}</td>
+                </tr> {{/rollGreater() r3 0}}
+            </table>
+        </div>
+    </rolltemplate>
+
+<!-- SCRIPTS
+   ============================= -->
+<script type="text/worker">
+
+const setAttributes = (update, silent) => { 
+	(silent === true) ? setAttrs(update, {silent:true}) : setAttrs(update); 
+};
+
+// === ATTRIBUTE ARRAYS
+	const arrays = {
+		attributes: ['strength','dexterity','constitution','intelligence','wisdom','charisma'],
+		repeating_settings: [],
+		sheets: ["character", "npc", "notes"],
+		toggles: ["attributes"]
+	};
+
+// === SETTINGS TOGGLES
+    //Switch between sheet types.
+    arrays["sheets"].forEach(attr => {
+        on(`clicked:toggle_${attr}`, (eventinfo) => {
+        	setAttributes({sheet_type: `${attr}`}, true);
+        });
+    });
+
+// === TOGGLE INPUT SETTINGS
+    arrays["toggles"].forEach(attr => {
+        on(`clicked:toggle_${attr}`, () => {
+        	getAttrs(["toggles"], (v) => {
+ 				let string = toggleBuilder(attr, v["toggles"]);
+                setAttributes({toggles: string}, true);
+        	});
+        });
+    });
+
+// === UPDATE TOGGLE STRING
+	const toggleBuilder = (attr, oldString) => {
+        let newString = (oldString.includes(`${attr}`)) ? oldString.replace(`${attr},`, "") : `${oldString}${attr},`;
+        return newString
+	};
+
+// === GM WHISPER TOGGLES
+	on("clicked:whisper", (eventinfo) => {
+		getAttrs(["gm_toggle"], (v) => {
+			setAttributes({gm_toggle: (v.gm_toggle.includes("gm")) ?  " " : "/w gm"}, true);
+		});
+	});
+
+
+// === SHEET VERSIONING
+	on("sheet:opened", () => {
+		getAttrs(["version"], (v) => { versioning(parseFloat(v.version) || 1); });
+	});			
+
+	const versioning = (version) => {
+	   console.log(`%c Versioning, ${version}`, "color: blue; font-weight:bold");
+	   if (version >= 1) {
+			console.log(`%c Version is update to date`, "color: maroon; font-weight:bold");
+	    } else {
+			setAttrs({version: 1}, () => {versioning(1)});
+		};
+	};
+
+// === ATTRIBUTES MOD CALC
+const stats = ['strength','dexterity','constitution','intelligence','wisdom','charisma'];
+stats.forEach(function (stat) {
+    on("change:" + stat + " sheet:opened", function () {
+        getAttrs([stat], function (values) {
+            const score = parseInt(values[stat], 10)||0; // this extracts the stat, and assumes a stat score of 0 the stat is not recognised as a number.
+			let mod = 0;
+			if(score < 4) mod = -3;
+			else if(score < 9) mod = Math.floor((score-9)/3);
+			else if(score > 17) mod = 3;
+			else if(score > 12) mod = Math.ceil((score-12)/3);
+            setAttrs({
+                [stat + 'Mod']: mod
+            });
+        });
+    });
+});
+
+</script>
