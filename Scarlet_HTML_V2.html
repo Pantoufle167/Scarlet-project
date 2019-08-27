@@ -1,5 +1,7 @@
+<div class=container>
 <!-- TABS
    ============================= -->
+<input class="type" name="attr_sheet_type" type="hidden" value="character">
 <input class="display_string" name="attr_character_settings" type="hidden" value="character">
 
 <!-- TABS & LOGO
@@ -25,9 +27,6 @@
 			</label>
 		</div>
 		<div class="grid grid-tab-buttons">
-			<!-- Buttons to toggle on GM whisper -->
-			<input class="whisper-toggle" name="attr_gm_toggle" type="hidden"  value=" " />
-			<button name="act_whisper" data-i18n-title="gm-whisper" title="gm whisper" type="action">q</button>
 			<!-- CHARACTER SHEETS -->
 		    <button data-i18n="pc" data-i18n-title="p19n" name="act_toggle_character" title="player character button" type="action">pc</button>
 		    <button data-i18n="notes" data-i18n-title="n9n" name="act_toggle_notes" title="notes button" type="action">notes</button>
@@ -40,23 +39,23 @@
    ============================= -->
 <div class="npc">
 	<div class="box npc-flex">
-	    <span>Name:</span><input type="text" name="attr_character_name">
-        <span>Speed:</span><input type="number" name="attr_npc_speed">
-        <span>AC:</span><input type="number" name="attr_npc_ac">
-        <span>Hit dice:</span><input type="number" name="attr_npc_hitdice">
+	    <h2>Name:</h2><input type="text" name="attr_character_name">
+        <h2>Speed:</h2><input type="number" name="attr_npc_speed">
+        <h2>AC:</h2><input type="number" name="attr_npc_ac">
+        <h2>Hit dice:</h2><input type="number" name="attr_npc_hitdice">
 	</div>
 	<div class="box npc-flex">
-	    <span>Morale:</span><input type="number" name="attr_npc_morale">
-        <span>Skill bonus:</span><input type="number" name="attr_npc_skill">
-        <span>Initiative:</span><button type="roll" value="/me rolls initiative:[[d8+@{dexterityMod}+?{Modifier|0}&{tracker}]]"></button>
+	    <h2>Morale:</h2><input type="number" name="attr_npc_morale">
+        <h2>Skill bonus:</h2><input type="number" name="attr_npc_skill">
+        <h2>Initiative:</h2><button type="roll" value="/me rolls initiative:[[d8+@{dexterityMod}+?{Modifier|0}&{tracker}]]"><h2>Initiative</h2></button>
 	</div>
 	<div class="box npc-flex">
 	    <fieldset class="repeating_npcatk">
-            <span>Attack:</span><input type="text" name="attr_npc_atk">
-            <span>Bonus:</span><input type="number" name="attr_npc_atk_bonus">
-            <span>Damage:</span><input type="text" name="attr_npc_dmg">
-            <span>Damage type:</span><input type="text" name="attr_npc_dmgtype">
-            <span>Roll:</span><button type='roll' value='&{template:attack} {{name=@{name} attacks using @{npc_atk}!}} {{toHit=[[d20+@{npc_atk_bonus}]]}} {{damage=[[@{npc_dmg}]]}}'></button>
+            <h2>Attack:</h2><input type="text" name="attr_npc_atk">
+            <h2>Bonus:</h2><input type="number" name="attr_npc_atk_bonus">
+            <h2>Damage:</h2><input type="text" name="attr_npc_dmg">
+            <h2>Damage type:</h2><input type="text" name="attr_npc_dmgtype">
+            <h2>Roll:</h2><button type='roll' value='&{template:attack} {{name=@{name} attacks using @{npc_atk}!}} {{toHit=[[d20+@{npc_atk_bonus}]]}} {{damage=[[@{npc_dmg}]]}}'><h2>Attack</h2></button>
         </fieldset>
 	</div>
 </div>
@@ -64,93 +63,123 @@
 <!-- PC SHEET
    ============================= -->
 <div class="pc">
+    <div class="flex pc-flex">
+        <div class="grid grid-header">
+            <h1 title="Main features">Main features</h1>
+        </div>
+        <div class="grid grid-pc-features">
+            <h2>Race:</h2><input type="text" name="attr_race" title="@{race}">
+            <h2>Experience:</h2><input type="number" name="attr_exp" title="@{exp}">
+            <h2>Level:</h2><span type="number" name="attr_lvl"title="@{lvl}"></span>
+            <h2>Attack Bonus:</h2><span type="number" name="attr_atk_bonus" title="@{atk_bonus}"></span>
+            <h2>Max HP:</h2><input type="number" name="attr_hp_max" title="@{hp_max}">
+            <h2>Current HP:</h2><input type="number" name="attr_hp" title="@{hp}">
+            <h2>Speed:</h2><input type="number" name="attr_speed" title="@{speed}">
+            <h2>Armor:</h2><input type="number" name="attr_armor" title="@{armor}">
+        </div>
+        <div class="grid grid-pc-fray">
+            <button type="roll" value="&{template:fray} {{name=@{character_name} attacks using Fray dice!}} {{r1=[[@{fray}]]}}"><h2>Fray Die</h2></button>
+                <span>Fray die:</span> 
+                <select name="attr_fray" style="max-width:80px"> 
+                        <option value="1d4">1d4</option>
+                        <option value="1d6">1d6</option>
+                        <option value="1d8">1d8</option>
+                </select>
+            <button type="roll" value="&{template:fray} {{name=@{character_name} turns undead!}} {{r1=[[?{Cleric level|0}d8]]}}"><h2>Turn Undead</h2></button>
+            <button data-i18n="bandage" name="act_bandage" title="bandage" type="action"><h2>Bandage</h2></button>
+            <button data-i18n="heal" name="act_heal" title="heal" type="action"><h2>Heal</h2></button>
+        </div>
+        <fieldset class="repeating_class">
+            <div class="flex-pc-class">
+                <h2>Classe:</h2>
+                <input type="text" name="attr_class_name" style="max-width: 100px">
+                <h2>Niveau:</h2>
+                <input type="number" name="attr_class_level">
+                <h2>Bonus d'attaque:</h2>
+                <input type="number" name="attr_class_atkbonus" step="0.01">
+            </div>
+        </fiedlset>
+    </div>
 	<div class="flex pc-flex">
 		<div class="grid grid-header">
-		    <button class="pictos" data-i18n-title="p23s" name="act_toggle_attributes" title="player character attributes" type="action">y</button>
 		    <h1 data-i18n="attributes" data-i18-title="attributes" title="attributes">attributes</h1>
 		</div>
 		<div class="grid grid-pc-attributes">
 			<!-- STRENGTH -->
-			<button name="roll_strength" type="roll" value="@{gm_toggle} &{template:rolls}{{header=^{strength}}}{{base=^{attributes}}}{{dice=[[2d8+@{strengthMod}+?{Modifier|0}]]}}">
+			<button name="roll_strength" type="roll" value="/me rolls Strength: [[2d8+@{strengthMod}+?{Modifier|0}]]">
 				<h2 data-i18n="strength">strength</h2>
+				<span type="number" name="attr_strengthMod" class="attrmod" title="@{strengthMod}"></span>
 			</button>
 			<label data-i18n-title="s11t" title="strength input">
 				<span>MAX</span>
 				<input name="attr_strength_max" placeholder="10" title="@{strength_max}" type="number" value="" />
 				<span>Current</span>
 				<input data-i18n-placeholder="10" name="attr_strength" placeholder="10" title="@{strength}" type="number" value="" />
-				<span>Mod</span>
-				<span type="number" name="attr_strengthMod" class="attrmod" title="@{strengthMod}"></span>
 			</label>
 		</div>
 		<div class="grid grid-pc-attributes">
 			<!-- DEXTERITY -->
-			<button name="roll_dexterity" type="roll" value="@{gm_toggle} &{template:rolls}{{header=^{dexterity}}}{{base=^{attributes}}}{{dice=[[2d8+@{dexterityMod}+?{Modifier|0}]]}}">
+			<button name="roll_dexterity" type="roll" value="/me rolls Dexterity: [[2d8+@{dexterityMod}+?{Modifier|0}]]">
 				<h2 data-i18n="dexterity">dexterity</h2>
+				<span type="number" name="attr_dexterityMod" class="attrmod" title="@{dexterityMod}"></span>
 			</button>
 			<label data-i18n-title="s11t" title="dexterity input">
 				<span>MAX</span>
 				<input name="attr_dexterity_max" placeholder="10" title="@{dexterity_max}" type="number" value="" />
 				<span>Current</span>
 				<input data-i18n-placeholder="10" name="attr_dexterity" placeholder="10" title="@{dexterity}" type="number" value="" />
-				<span>Mod</span>
-				<span type="number" name="attr_dexterityMod" class="attrmod" title="@{dexterityMod}"></span>
 			</label>
 		</div>
 		<div class="grid grid-pc-attributes">
 			<!-- CONSTITUTION -->
-			<button name="roll_constitution" type="roll" value="@{gm_toggle} &{template:rolls}{{header=^{constitution}}}{{base=^{attributes}}}{{dice=[[2d8+@{constitutionMod}+?{Modifier|0}]]}}">
+			<button name="roll_constitution" type="roll" value="/me rolls Constitution: [[2d8+@{constitutionMod}+?{Modifier|0}]]">
 				<h2 data-i18n="constitution">constitution</h2>
+				<span type="number" name="attr_constitutionMod" class="attrmod" title="@{constitutionMod}"></span>
 			</button>
 			<label data-i18n-title="s11t" title="constitution input">
 				<span>MAX</span>
 				<input name="attr_constitution_max" placeholder="10" title="@{constitution_max}" type="number" value="" />
 				<span>Current</span>
 				<input data-i18n-placeholder="10" name="attr_constitution" placeholder="10" title="@{constitution}" type="number" value="" />
-				<span>Mod</span>
-				<span type="number" name="attr_constitutionMod" class="attrmod" title="@{constitutionMod}"></span>
 			</label>
 		</div>
 		<div class="grid grid-pc-attributes">
 			<!-- INTELLIGENCE -->
-			<button name="roll_intelligence" type="roll" value="@{gm_toggle} &{template:rolls}{{header=^{intelligence}}}{{base=^{attributes}}}{{dice=[[2d8+@{intelligenceMod}+?{Modifier|0}]]}}">
+			<button name="roll_intelligence" type="roll" value="/me rolls Intelligence: [[2d8+@{intelligenceMod}+?{Modifier|0}]]">
 				<h2 data-i18n="intelligence">intelligence</h2>
+				<span type="number" name="attr_intelligenceMod" class="attrmod" title="@{intelligenceMod}"></span>
 			</button>
 			<label data-i18n-title="s11t" title="intelligence input">
 				<span>MAX</span>
 				<input name="attr_intelligence_max" placeholder="10" title="@{intelligence_max}" type="number" value="" />
 				<span>Current</span>
 				<input data-i18n-placeholder="10" name="attr_intelligence" placeholder="10" title="@{intelligence}" type="number" value="" />
-				<span>Mod</span>
-				<span type="number" name="attr_intelligenceMod" class="attrmod" title="@{intelligenceMod}"></span>
 			</label>
 		</div>
 		<div class="grid grid-pc-attributes">
 			<!-- WISDOM -->
-			<button name="roll_wisdom" type="roll" value="@{gm_toggle} &{template:rolls}{{header=^{wisdom}}}{{base=^{attributes}}}{{dice=[[2d8+@{wisdomMod}+?{Modifier|0}]]}}">
+			<button name="roll_wisdom" type="roll" value="/me rolls Wisdom: [[2d8+@{wisdomMod}+?{Modifier|0}]]">
 				<h2 data-i18n="wisdom">wisdom</h2>
+				<span type="number" name="attr_wisdomMod" class="attrmod" title="@{wisdomMod}"></span>
 			</button>
 			<label data-i18n-title="s11t" title="wisdom input">
 				<span>MAX</span>
 				<input name="attr_wisdom_max" placeholder="10" title="@{wisdom_max}" type="number" value="" />
 				<span>Current</span>
 				<input data-i18n-placeholder="10" name="attr_wisdom" placeholder="10" title="@{wisdom}" type="number" value="" />
-				<span>Mod</span>
-				<span type="number" name="attr_wisdomMod" class="attrmod" title="@{wisdomMod}"></span>
 			</label>
 		</div>
 		<div class="grid grid-pc-attributes">
 			<!-- CHARISMA -->
-			<button name="roll_charisma" type="roll" value="@{gm_toggle} &{template:rolls}{{header=^{charisma}}}{{base=^{attributes}}}{{dice=[[2d8+@{charismaMod}+?{Modifier|0}]]}}">
+			<button name="roll_charisma" type="roll" value="/me rolls Charisma: [[2d8+@{charismaMod}+?{Modifier|0}]]">
 				<h2 data-i18n="charisma">charisma</h2>
+				<span type="number" name="attr_charismaMod" class="attrmod" title="@{charismaMod}"></span>
 			</button>
 			<label data-i18n-title="s11t" title="charisma input">
 				<span>MAX</span>
 				<input name="attr_charisma_max" placeholder="10" title="@{charisma_max}" type="number" value="" />
 				<span>Current</span>
 				<input data-i18n-placeholder="10" name="attr_charisma" placeholder="10" title="@{charisma}" type="number" value="" />
-				<span>Mod</span>
-				<span type="number" name="attr_charismaMod" class="attrmod" title="@{charismaMod}"></span>
 			</label>
 		</div>
 	</div>
@@ -166,7 +195,7 @@
 	</div>
 	<div class="flex pc-flex">
 	    <div class="grid grid-header">
-	        <h1 data-i18n="Weapons" data-i18-title="Weapons" title="header 1">Weapons</h1>
+	        <h1 data-i18n="Attacks" data-i18-title="Attacks" title="header 1">Attacks</h1>
 	    </div>
                 <fieldset class="repeating_weapons">
                         <input type="text" name="attr_wepName">
@@ -200,7 +229,7 @@
                                 <option value="[[@{damage3_check}d10]]">1d10</option>
                                 <option value="[[@{damage3_check}d12]]">1d12</option>
                             </select></div>
-                        <button type='roll' value='&{template:attack} {{name=@{character_name} attacks with @{wepName}!}} {{toHit=[[d20+floor(@{atk_bonus})+@{wepBonus}]]}} {{r1=[[@{damage1}]]}} {{r2=[[@{damage2}]]}} {{r3=[[@{damage3}]]}}' class="nod20" style="margin-bottom:10px;"><span>Attack</span></span></button>
+                        <button type='roll' value='&{template:attack} {{name=@{character_name} attacks with @{wepName}!}} {{toHit=[[d20+round(@{atk_bonus})+@{wepBonus}]]}} {{r1=[[@{damage1}]]}} {{r2=[[@{damage2}]]}} {{r3=[[@{damage3}]]}}'><h2>Attack</h2></span></button>
                 </fieldset>
 	</div>
 	<div class="flex pc-flex">
@@ -235,6 +264,7 @@
 <div class="notes">
 </div>
 
+</div>
 <!-- FOOTER
    ============================= -->
 <footer>
@@ -248,29 +278,7 @@
 
 <!-- ROLL TEMPLATE
    ============================= -->
-	<div class="rolltemplates">
-		<rolltemplate class="sheet-rolltemplate-rolls">
-		 	<!--- Display a header on the template --->
-    		<div class="sheet-template-header">
-    			{{#header}}{{header}}{{/header}}
-    		</div>
-    		<!--- Display the dice roll in the template --->
-	    	<div class="sheet-template-body">
-	    		{{#dice}}
-	    			<div class="sheet-template-row">{{dice}}</div>
-	    		{{/dice}}
-	    		<!--- Display a description. This is great for text included with a roll --->
-		    	{{#desc}}
-		    		<div class="sheet-template-row">
-		    			<span class="sheet-template-desc">
-		    			</span>
-		    		</div>
-	    		{{/desc}}
-	    	</div>
-		</rolltemplate>
-	</div>
-	
-	<rolltemplate class="sheet-rolltemplate-attack">
+<rolltemplate class="sheet-rolltemplate-attack">
         <div class ='wholeTemplate'>
             <div class='heading'>
                 <h4>{{name}}</h4>
@@ -300,7 +308,19 @@
                 </tr> {{/rollGreater() r3 0}}
             </table>
         </div>
-    </rolltemplate>
+</rolltemplate>
+
+<rolltemplate class="sheet-rolltemplate-fray">
+    <div class ="sheet-fray_container">
+        <div class="fray_header"><h4>{{name}}</h4></div>
+        <div class="fray_desc">Target's Hit dice must be lower than your level (unless you're magic-user)</div>
+        <div class="fray_row1">Damage Roll:{{r1}}</div>
+        <div class="fray_row2">{{#rollLess() r1 2}} <span>Damage : 0</span> {{/rollLess() r1 2}}</div>
+        <div class="fray_row2">{{#rollBetween() r1 2 5}} <span>Damage : 1</span> {{/rollBetween() r1 2 5}}</div>
+        <div class="fray_row2">{{#rollBetween() r1 6 9}} <span>Damage : 2</span> {{/rollBetween() r1 6 9}}</div>
+        <div class="fray_row2">{{#rollGreater() r1 9}} <span>Damage : 4</span> {{/rollGreater() r1 9}}</div>
+    </div>
+</rolltemplate>
 
 <!-- SCRIPTS
    ============================= -->
@@ -342,13 +362,6 @@ const setAttributes = (update, silent) => {
         return newString
 	};
 
-// === GM WHISPER TOGGLES
-	on("clicked:whisper", (eventinfo) => {
-		getAttrs(["gm_toggle"], (v) => {
-			setAttributes({gm_toggle: (v.gm_toggle.includes("gm")) ?  " " : "/w gm"}, true);
-		});
-	});
-
 
 // === SHEET VERSIONING
 	on("sheet:opened", () => {
@@ -380,6 +393,28 @@ stats.forEach(function (stat) {
             });
         });
     });
+});
+
+const repeatingSum = (destination, section, fields, multiplier = 1) => {
+    if (!Array.isArray(fields)) fields = [fields];
+    getSectionIDs(`repeating_${section}`, idArray => {
+        const attrArray = idArray.reduce( (m,id) => [...m, ...(fields.map(field => `repeating_${section}_${id}_${field}`))],[]);
+        getAttrs(attrArray, v => {
+            console.log("===== values of v: "+ JSON.stringify(v) +" =====");
+                 // getValue: if not a number, returns 1 if it is 'on' (checkbox), otherwise returns 0..
+            const getValue = (section, id,field) => parseFloat(v[`repeating_${section}_${id}_${field}`], 10) || (v[`repeating_${section}_${id}_${field}`] === 'on' ? 1 : 0); 
+            const sumTotal = idArray.reduce((total, id) => total + fields.reduce((subtotal,field) => subtotal * getValue(section, id,field),1),0);
+            setAttrs({[destination]: sumTotal * multiplier});    
+        });
+    });
+};
+
+on('change:repeating_class remove:repeating_class', function() {
+	repeatingSum("lvl","class","class_level");
+});
+
+on('change:repeating_class remove:repeating_class', function() {
+	repeatingSum("atk_bonus","class","class_atkbonus");
 });
 
 </script>

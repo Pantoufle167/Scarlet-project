@@ -18,8 +18,10 @@
 	"intelligence": "intelligence",
 	"wisdom": "wisdom",
 	"charisma": "charisma",
-	"Weapons": "Weapons",
+	"Attacks": "Attacks",
 	"Magic": "Magic",
 	"Gear": "Gear",
-	"Treasure": "Treasure"
+	"Treasure": "Treasure",
+	"bandage": "Bandage",
+	"heal": "Heal"
 }
